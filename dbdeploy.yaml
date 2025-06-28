@@ -1,4 +1,4 @@
-apiVersion: v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: vprodb
@@ -24,13 +24,13 @@ spec:
         resources:
         ports:
         - name: vprodb-port
-        - containerPort: 3306
+          containerPort: 3306
         env:
-          - name: MY_SQL_ROOT_PASSWORD
+          - name: MYSQL_ROOT_PASSWORD
             valueFrom: 
               secretKeyRef:
                 name: my-app-secret
-                key: dp-pass
+                key: db-pass
       volumes:
         - name: vpro-db-data
           persistentVolumeClaim:

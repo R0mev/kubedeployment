@@ -1,4 +1,4 @@
-apiVersion: v1 
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: vproapp
@@ -24,10 +24,10 @@ spec:
     initContainers:
       - name: init-mydb
         image: busybox:latest
-        command: ['sh', '-c', 'until nslookup vprodb.$((cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for vprodb; sleep 2; done;']
+        command: ['sh', '-c', 'until nslookup vprodb.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for vprodb; sleep 2; done;']
       - name: init-memcache
         image: busybox:latest
-        command: ['sh', '-c', 'until nslookup vprocache.$((cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for vprocache; sleep 2; done;']
+        command: ['sh', '-c', 'until nslookup vprocache01.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for vprocache; sleep 2; done;']
       - name: init-rabbitmq
         image: busybox:latest
-        command: ['sh','c', 'until nslookup vpromq01.$((cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for vprocache; sleep 2; done;']
+        command: ['sh','-c', 'until nslookup vpromq01.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for vprocache; sleep 2; done;']
