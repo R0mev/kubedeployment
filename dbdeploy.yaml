@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: vprodb
-        image: r0mev/vprofiledb
+        image: vprocontainers/vprofiledb
         volumeMounts:
          - mountPath: /var/lib/mysql
            name: vpro-db-data
@@ -31,6 +31,7 @@ spec:
               secretKeyRef:
                 name: my-app-secret
                 key: db-pass
+
       volumes:
         - name: vpro-db-data
           persistentVolumeClaim:

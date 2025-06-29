@@ -1,4 +1,4 @@
-apiVersion: networkinng.k8s.io/v1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: vpro-ingress
@@ -8,12 +8,12 @@ spec:
   ingressClassName: nginx
   rules:
   - host: vprofile.r0mev.com
-  http:
-    paths:
+    http:
+      paths:
       - path: /
         pathType: Prefix
         backend:
           service:
             name: vproapp-service
-            ports:
-              number: 80
+            port:
+              number: 8080
